@@ -1,0 +1,24 @@
+{
+  "name": "react-routing-filters",
+  "version": "1.0.0",
+  "description": "Handle filters and their changes ",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel index.jsx -d ./",
+    "prepublish": "npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/cli": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-plugin-add-module-exports": "^1.0.2"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "react": "^16.8.6"
+  }
+}
