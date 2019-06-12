@@ -1,7 +1,7 @@
 {
   "name": "react-routing-filters",
   "version": "1.0.0",
-  "description": "Handle filters and their changes ",
+  "description": "Handles filters and their changes in url",
   "main": "index.js",
   "scripts": {
     "build": "babel index.jsx -d ./",
