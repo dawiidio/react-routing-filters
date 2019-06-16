@@ -19,6 +19,15 @@ with this library you can achieve something like this:
 `localhost:3000/#/users/?filters={"name":"Dave", "surname": "Wo"}`
 
 ### Usage
+Context provides api described below:
+```ts
+interface FiltersContext<T> {
+    filters: T
+    setFilters(filters:T):void
+    reset():void
+}
+```
+
 ```js
 import { FiltersProvider, FiltersContext } from 'react-routing-filters';
 
