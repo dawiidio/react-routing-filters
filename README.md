@@ -18,7 +18,8 @@ E.g.: if you want to pass object like below in application url
 with this library you can achieve something like this:
 `localhost:3000/#/users/?filters={"name":"Dave", "surname": "Wo"}`
 
-### Usage
+### API
+
 Context provides api described below:
 ```ts
 interface FiltersContext<T> {
@@ -28,7 +29,11 @@ interface FiltersContext<T> {
 }
 ```
 
+### Usage
+
 ```js
+import ReactDOM from "react-dom";
+import React, { useContext } from 'react';
 import { FiltersProvider, FiltersContext } from 'react-routing-filters';
 
 function FiltersButton() {
