@@ -16,9 +16,36 @@ E.g.: if you want to pass object like below in application url
 ```
 
 with this library you can achieve something like this:
-`localhost:3000/#/users/?filters={"name":"Dave", "surname": "Wo"}`
+`localhost:3000/#/users/?name=Dave&surname=Wo`
 
 ### Usage
+
+#### FiltersProvider
+Provides context which looks like this:
+```ts
+interface FiltersContext<T> {
+    filters: T,
+    setFilters: (filters:T) => void,
+    reset: () => void
+}
+```
+
+**Warning** <br>
+if you want set in filters array like this:
+
+```js
+setFilters({
+  random: [Math.random(), Math.random()]
+});
+```
+
+you need to remember that values passed in array
+can not contains comas. It's because filters are
+parsed according to URL search string rules
+which specify that comas are separators for one-to-many
+values
+
+#### Example
 ```js
 import { FiltersProvider, FiltersContext } from 'react-routing-filters';
 

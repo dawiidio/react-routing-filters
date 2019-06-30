@@ -1,6 +1,6 @@
 {
   "name": "react-routing-filters",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Handles filters and their changes in url",
   "main": "index.js",
   "scripts": {

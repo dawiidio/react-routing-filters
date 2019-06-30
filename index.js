@@ -43,7 +43,7 @@ function FiltersProvider(_ref) {
 
         var usp = new URLSearchParams(queryStr);
         var filtersObject = JSON.parse(usp.get(FILTERS_KEY));
-        setFilters(filtersObject);
+        setFilters(filtersObject || {});
       } catch (e) {
         setFilters({});
       }
