@@ -42,7 +42,7 @@ interface FiltersContext<T> {
 ```
 
 **Warning** <br>
-if you want set in filters array like this:
+if you want set array in filters:
 
 ```js
 setFilters({
@@ -50,7 +50,7 @@ setFilters({
 });
 ```
 
-you need to remember that values passed in array
+remember that values passed in array
 can not contains comas. It's because filters are
 parsed according to URL search string rules
 which specify that comas are separators for one-to-many
