@@ -1,21 +1,19 @@
 import React, { useEffect, useState, createContext } from "react";
 
-const ARRAY_VALUES_SEPARATOR = ',';
+const ARRAY_VALUES_SEPARATOR = ",";
 
 function splitHashToPathAndQuery(str) {
     return decodeURIComponent(str).split("?");
 }
 
 function createObjectFromUrlSearchParams(usp) {
-    return Array
-        .from(usp.entries())
-        .reduce((acc, [key, val]) => {
-            const splitedVal = val.includes(ARRAY_VALUES_SEPARATOR)
-                ? val.split(ARRAY_VALUES_SEPARATOR)
-                : val;
+    return Array.from(usp.entries()).reduce((acc, [key, val]) => {
+        const splitedVal = val.includes(ARRAY_VALUES_SEPARATOR)
+            ? val.split(ARRAY_VALUES_SEPARATOR)
+            : val;
 
-            return ({ ...acc, [key]: splitedVal });
-        }, {});
+        return { ...acc, [key]: splitedVal };
+    }, {});
 }
 
 export const FiltersContext = createContext({});
@@ -47,7 +45,6 @@ export function FiltersProvider({ children }) {
 
     function setUserFilters(filtersObject) {
         const [path] = splitHashToPathAndQuery(window.location.hash);
-
         const usp = new URLSearchParams({
             ...filters,
             ...filtersObject
@@ -56,10 +53,14 @@ export function FiltersProvider({ children }) {
         window.location.hash = `${path}?${usp.toString()}`;
     }
 
+    function resetFilters() {
+        window.location.hash = ``;
+    }
+
     const ctx = {
         filters,
         setFilters: setUserFilters,
-        reset: () => setUserFilters()
+        reset: resetFilters
     };
 
     return (
