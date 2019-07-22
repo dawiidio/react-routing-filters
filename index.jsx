@@ -54,7 +54,8 @@ export function FiltersProvider({ children }) {
     }
 
     function resetFilters() {
-        window.location.hash = ``;
+        const dividedHash = splitHashToPathAndQuery(window.location.hash);
+        window.location.hash = dividedHash[0];
     }
 
     const ctx = {

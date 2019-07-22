@@ -84,7 +84,8 @@ function FiltersProvider(_ref3) {
   }
 
   function resetFilters() {
-    window.location.hash = "";
+    var dividedHash = splitHashToPathAndQuery(window.location.hash);
+    window.location.hash = dividedHash[0];
   }
 
   var ctx = {
