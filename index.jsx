@@ -8,7 +8,7 @@ function splitHashToPathAndQuery(str) {
 
 function createObjectFromUrlSearchParams(usp) {
     return Array.from(usp.entries()).reduce((acc, [key, val]) => {
-        // TODO this line is error-prone, if you have problems with arrays look here
+        // TODO this split is error-prone. Look at here if you have problem with arrays
         const splitedVal = val.includes(ARRAY_VALUES_SEPARATOR)
             ? val.split(ARRAY_VALUES_SEPARATOR)
             : val;
