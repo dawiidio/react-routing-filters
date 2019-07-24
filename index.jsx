@@ -55,7 +55,8 @@ export function FiltersProvider({ children }) {
     }
 
     function resetFilters() {
-        window.location.hash = ``;
+        const [path] = splitHashToPathAndQuery(window.location.hash);
+        window.location.hash = path;
     }
 
     const ctx = {
