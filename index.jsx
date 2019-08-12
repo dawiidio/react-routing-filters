@@ -41,20 +41,28 @@ export function FiltersProvider({ children }) {
         return () => {
             window.onhashchange = null;
         };
-    }, [1]);
+    }, []);
 
     function setUserFilters(filtersObject) {
-        const [path] = splitHashToPathAndQuery(window.location.hash);
-        const usp = new URLSearchParams({
-            ...filters,
-            ...filtersObject
+        const existingValues = Object.keys(filtersObject).filter(element => {
+            if( filtersObject[element] === false) return true;
+            return !!filtersObject[element];
         });
+
+        let filtersObjectWithExistingVales = {};
+        existingValues.forEach(element => {
+            filtersObjectWithExistingVales[element] = filtersObject[element];
+        });
+
+        const [path] = splitHashToPathAndQuery(window.location.hash);
+        const usp = new URLSearchParams(filtersObjectWithExistingVales);
 
         window.location.hash = `${path}?${usp.toString()}`;
     }
 
     function resetFilters() {
-        window.location.hash = ``;
+        const [path] = splitHashToPathAndQuery(window.location.hash);
+        window.location.hash = path;
     }
 
     const ctx = {
