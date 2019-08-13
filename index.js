@@ -72,19 +72,30 @@ function FiltersProvider(_ref3) {
     return function () {
       window.onhashchange = null;
     };
-  }, [1]);
+  }, []);
 
   function setUserFilters(filtersObject) {
+    var filtersObjectWithExistingVales = Object.keys(filtersObject).filter(function (element) {
+      if (filtersObject[element] === false) return true;
+      return !!filtersObject[element];
+    }).reduce(function (accumulator, current) {
+      return _objectSpread({}, accumulator, _defineProperty({}, current, filtersObject[current]));
+    });
+
     var _splitHashToPathAndQu3 = splitHashToPathAndQuery(window.location.hash),
         _splitHashToPathAndQu4 = _slicedToArray(_splitHashToPathAndQu3, 1),
         path = _splitHashToPathAndQu4[0];
 
-    var usp = new URLSearchParams(_objectSpread({}, filters, {}, filtersObject));
+    var usp = new URLSearchParams(filtersObjectWithExistingVales);
     window.location.hash = "".concat(path, "?").concat(usp.toString());
   }
 
   function resetFilters() {
-    window.location.hash = "";
+    var _splitHashToPathAndQu5 = splitHashToPathAndQuery(window.location.hash),
+        _splitHashToPathAndQu6 = _slicedToArray(_splitHashToPathAndQu5, 1),
+        path = _splitHashToPathAndQu6[0];
+
+    window.location.hash = path;
   }
 
   var ctx = {
