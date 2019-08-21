@@ -10,7 +10,7 @@ var _react = _interopRequireWildcard(require("react"));
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
@@ -75,18 +75,25 @@ function FiltersProvider(_ref3) {
   }, []);
 
   function setUserFilters(filtersObject) {
-    var filtersObjectWithExistingVales = Object.keys(filtersObject).filter(function (element) {
-      if (filtersObject[element] === false) return true;
-      return !!filtersObject[element];
-    }).reduce(function (accumulator, current) {
-      return _objectSpread({}, accumulator, _defineProperty({}, current, filtersObject[current]));
+    var filtersObjectWithExistingValues = Object.entries(filtersObject).filter(function (_ref4) {
+      var _ref5 = _slicedToArray(_ref4, 2),
+          value = _ref5[1];
+
+      if (value === false) return true;
+      return !!value;
+    }).reduce(function (accumulator, _ref6) {
+      var _ref7 = _slicedToArray(_ref6, 2),
+          key = _ref7[0],
+          value = _ref7[1];
+
+      return _objectSpread({}, accumulator, _defineProperty({}, key, value));
     });
 
     var _splitHashToPathAndQu3 = splitHashToPathAndQuery(window.location.hash),
         _splitHashToPathAndQu4 = _slicedToArray(_splitHashToPathAndQu3, 1),
         path = _splitHashToPathAndQu4[0];
 
-    var usp = new URLSearchParams(filtersObjectWithExistingVales);
+    var usp = new URLSearchParams(filtersObjectWithExistingValues);
     window.location.hash = "".concat(path, "?").concat(usp.toString());
   }
 

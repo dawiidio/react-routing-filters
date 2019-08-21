@@ -44,16 +44,17 @@ export function FiltersProvider({ children }) {
     }, []);
 
     function setUserFilters(filtersObject) {
-        const filtersObjectWithExistingVales = Object.keys(filtersObject).filter(element => {
-            if (filtersObject[element] === false) return true;
-            return !!filtersObject[element];
-        }).reduce((accumulator, current) => ({
-            ...accumulator,
-            [current]: filtersObject[current]
-        }));
+        const filtersObjectWithExistingValues =
+            Object.entries(filtersObject).filter(([, value]) => {
+                if (value === false) return true;
+                return !!value;
+            }).reduce((accumulator, [key, value]) => ({
+                ...accumulator,
+                [key]: value
+            }));
 
         const [path] = splitHashToPathAndQuery(window.location.hash);
-        const usp = new URLSearchParams(filtersObjectWithExistingVales);
+        const usp = new URLSearchParams(filtersObjectWithExistingValues);
 
         window.location.hash = `${path}?${usp.toString()}`;
     }
