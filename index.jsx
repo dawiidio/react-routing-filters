@@ -42,14 +42,20 @@ export function FiltersProvider({ children }) {
         return () => {
             window.onhashchange = null;
         };
-    }, [1]);
+    }, []);
 
     function setUserFilters(filtersObject) {
+        const filtersObjectWithExistingValues =
+            Object.entries(filtersObject).filter(([, value]) => {
+                if (value === false) return true;
+                return !!value;
+            }).reduce((accumulator, [key, value]) => ({
+                ...accumulator,
+                [key]: value
+            }));
+
         const [path] = splitHashToPathAndQuery(window.location.hash);
-        const usp = new URLSearchParams({
-            ...filters,
-            ...filtersObject
-        });
+        const usp = new URLSearchParams(filtersObjectWithExistingValues);
 
         window.location.hash = `${path}?${usp.toString()}`;
     }
